@@ -8,11 +8,10 @@
     <link rel="manifest" href="/manifest.json">
 
     <!-- Add a link to your icon for the home screen -->
-    <link rel="apple-touch-icon"https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
-    <title>UniStay</title>
-    <!-- Set the website icon (favicon) to the splash image -->
-    <link rel="icon" href="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
+    <link rel="apple-touch-icon" href="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
+<link rel="icon" href="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
 
+<title>UniStay</title>
     <style>
         body, html {
             margin: 0;
@@ -100,9 +99,10 @@
 
         // Hide the splash screen after 5 seconds and show the website
         setTimeout(function() {
-            document.getElementById("splashScreen").style.display = "none";
-            document.getElementById("websiteFrame").style.display = "block";
-        }, 5000);
+    document.getElementById("splashScreen").style.display = "none";
+    document.getElementById("websiteFrame").style.display = "block";
+}, 5000);
+
     } else {
         // Show the splash screen for non-mobile devices
         document.getElementById("splashScreen").style.display = "flex";
