@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="manifest" href="/manifest.json">
+
+    <!-- Add a link to your icon for the home screen -->
+    <link rel="apple-touch-icon"https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
+    <title>UniStay</title>
+    <!-- Set the website icon (favicon) to the splash image -->
+    <link rel="icon" href="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" type="image/png">
+
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+
+        #webviewContainer {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        #splashScreen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 4;
+        }
+
+        #splashImage {
+            width: 200px;
+            height: 200px;
+        }
+
+        #websiteFrame {
+            width: 100%; /* Adjusted to fill the container */
+            height: 100%; /* Adjusted to fill the container */
+            border: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            clip-path: polygon(0 0, 100% 0, 100% 100%, 10% 100%, 0 90%);
+            display: none;
+        }
+
+        #topRightBox {
+            position: absolute;
+            top: 0;
+            right: 0;
+            width: 50px;
+            height: 50px;
+            background-color: #6c35de;
+            z-index: 2;
+        }
+
+        #bottomBar {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #3c007a;
+            color: #fff;
+            text-align: center;
+            line-height: 30px; /* Adjusted to match height */
+            font-size: 14px; /* Adjusted to fit text in the bar */
+            z-index: 3;
+        }
+    </style>
+</head>
+<body>
+
+<div id="splashScreen">
+    <img id="splashImage" src="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" alt="Splash Image">
+</div>
+
+<div id="webviewContainer">
+    <iframe id="websiteFrame" src="http://tinyurl.com/unistay1"></iframe>
+    <div id="topRightBox"></div>
+    <div id="bottomBar"></div>
+</div>
+<script>
+    // Check if the user is using a mobile device
+    if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+        // Show the splash screen initially
+        document.getElementById("splashScreen").style.display = "flex";
+
+        // Hide the splash screen after 5 seconds and show the website
+        setTimeout(function() {
+            document.getElementById("splashScreen").style.display = "none";
+            document.getElementById("websiteFrame").style.display = "block";
+        }, 5000);
+    } else {
+        // Show the splash screen for non-mobile devices
+        document.getElementById("splashScreen").style.display = "flex";
+        
+        // Hide the website frame for non-mobile devices
+        document.getElementById("websiteFrame").style.display = "none";
+    }
+</script>
+   <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('/service-worker.js')
+                .then(function (registration) {
+                    console.log('Service Worker registered with scope:', registration.scope);
+                })
+                .catch(function (error) {
+                    console.error('Service Worker registration failed:', error);
+                });
+        }
+
+        let deferredPrompt;
+
+        window.addEventListener('beforeinstallprompt', (e) => {
+            // Prevent Chrome 67 and earlier from automatically showing the prompt
+            e.preventDefault();
+
+            // Stash the event so it can be triggered later
+            deferredPrompt = e;
+
+            // Show the install button
+            showInstallPromotion();
+        });
+
+        function showInstallPromotion() {
+            // Display your custom installation prompt here
+            // You can use a modal, a banner, or any other element
+            if (confirm('Install this site as an app?')) {
+                // If the user clicks "OK", prompt the deferred prompt
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        console.log('User accepted the install prompt');
+                    } else {
+                        console.log('User dismissed the install prompt');
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+    </script>
+
+</body>
+</html>
