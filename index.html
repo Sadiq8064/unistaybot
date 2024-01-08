@@ -26,24 +26,7 @@
             overflow: hidden;
         }
 
-        #splashScreen {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 4;
-        }
-
-        #splashImage {
-            width: 200px;
-            height: 200px;
-        }
-
+       
         #websiteFrame {
             width: 100%; /* Adjusted to fill the container */
             height: 100%; /* Adjusted to fill the container */
@@ -79,12 +62,46 @@
             z-index: 3;
         }
     </style>
+      <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+      background: linear-gradient(to bottom, #000, #002240); /* Adjust gradient colors as needed */
+    }
+
+    .splash-screen {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Palatino Linotype', 'Book Antiqua', Palatino, serif;
+      opacity: 1;
+      transition: opacity 1s ease-in-out;
+    }
+
+    .splash-screen.hidden {
+      opacity: 0;
+    }
+
+    .splash-screen h3 {
+      font-size: 3em;
+      margin: 0;
+    }
+
+    .uni-color {
+      color: #FFC836;
+    }
+
+    .stay-color {
+      color: white;
+    }
+  </style>
 </head>
 <body>
 
-<div id="splashScreen">
-    <img id="splashImage" src="https://t3.ftcdn.net/jpg/04/33/43/40/240_F_433434069_Gfm1mb0bnl1tkSVDduNujcNYV9dmP16V.jpg" alt="Splash Image">
-</div>
+<div class="splash-screen" id="splashScreen">
+    <h3><span class="uni-color">Uni</span><span class="stay-color">Stay</span></h3>
+  </div>
 
 <div id="webviewContainer">
     <iframe id="websiteFrame" src="https://app.wotnot.io/bot-preview/8BJGjF43SodS1039273195675WYrGVSV"></iframe>
